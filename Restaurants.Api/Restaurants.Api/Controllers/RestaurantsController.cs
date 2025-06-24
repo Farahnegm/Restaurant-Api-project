@@ -22,13 +22,12 @@ namespace Restaurants.Api.Controllers
      
         public async Task<ActionResult<IEnumerable<RestaurantDTO>>> GetAll([FromQuery] GetAllRestaurantsQuery query)
         {
-
             var restaurants = await mediator.Send(query);
             return Ok(restaurants);
 
         }
         [HttpGet("id")]
-        [Authorize(Policy = PolicyNames.HasNationality)]
+        //[Authorize(Policy = PolicyNames.HasNationality)]
         public async Task<ActionResult<RestaurantDTO?>> GetById(int id)
         {
             var restaurant = await mediator.Send(new GetRestaurantByIdQuery(id));
