@@ -1,5 +1,4 @@
 
-
 using Restaurants.Infrastructure.Seeders;
 using Restaurants.Infrastructure.Repositories;
 using Restaurants.Infrastructure.persistence;
@@ -62,6 +61,8 @@ namespace Restaurants.Api
             app.MapControllers();
 
             app.Run();
+          
         }
+        
     }
 }
