@@ -5,22 +5,28 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4.2.2
+
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3.4.2
       with:
-       dotnet-version: 8.0.x
+        dotnet-version: 8.0.x
+
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: Restaurants.Api
+
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
+      working-directory: Restaurants.Api
+
     - name: Test
-      run: dotnet test
+      run: dotnet test --no-build --verbosity normal
+      working-directory: Restaurants.Api
