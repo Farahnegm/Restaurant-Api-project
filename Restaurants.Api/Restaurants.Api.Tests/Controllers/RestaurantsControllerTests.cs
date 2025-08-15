@@ -83,7 +83,6 @@ namespace Restaurants.Api.Controllers.Tests
         public async Task GetById_ForExistingId_ShouldReturn200Ok()
         {
             // arrange
-
             var id = 99;
 
             var restaurant = new Restaurant()
@@ -93,20 +92,24 @@ namespace Restaurants.Api.Controllers.Tests
                 Description = "Test description"
             };
 
-
             _restaurantsRepositoryMock.Setup(m => m.GetByIdAsync(id)).ReturnsAsync(restaurant);
 
             var client = _factory.CreateClient();
 
             // act
             var response = await client.GetAsync($"/api/restaurants/{id}");
-            var restaurantDto = await response.Content.ReadFromJsonAsync<RestaurantDTO>();
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            restaurantDto.Should().NotBeNull();
-            restaurantDto.Name.Should().Be("Test");
-            restaurantDto.Description.Should().Be("Test description");
+            
+            // Only try to deserialize if we got a successful response
+            if (response.IsSuccessStatusCode)
+            {
+                var restaurantDto = await response.Content.ReadFromJsonAsync<RestaurantDTO>();
+                restaurantDto.Should().NotBeNull();
+                restaurantDto.Name.Should().Be("Test");
+                restaurantDto.Description.Should().Be("Test description");
+            }
         }
 
 

@@ -26,7 +26,7 @@ namespace Restaurants.Api.Controllers
             return Ok(restaurants);
 
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         //[Authorize(Policy = PolicyNames.HasNationality)]
         public async Task<ActionResult<RestaurantDTO?>> GetById(int id)
         {
@@ -37,7 +37,7 @@ namespace Restaurants.Api.Controllers
             }
             return Ok(restaurant);
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteRestaurant(int id)
@@ -56,7 +56,7 @@ namespace Restaurants.Api.Controllers
             var id = await mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id = id }, null);
         }
-        [HttpPatch("id")]
+        [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateRestaurant(int id, [FromBody] UpdateRestaurantCommand command)
