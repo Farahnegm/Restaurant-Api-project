@@ -30,15 +30,15 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore Restaurants.Api/Restaurants.Api.sln
 
-      # 5️⃣ Build without treating warnings as errors (temporary while fixing code)
+      # 5️⃣ Build the solution
       - name: Build
         run: dotnet build Restaurants.Api/Restaurants.Api.sln --configuration Release /p:TreatWarningsAsErrors=false
 
-      # 6️⃣ Run tests with better error handling and logging
+      # 6️⃣ Run tests with proper build
       - name: Test
         run: |
           echo "Running tests for the solution..."
-          dotnet test Restaurants.Api/Restaurants.Api.sln --no-build --verbosity normal --logger "console;verbosity=detailed" --collect:"XPlat Code Coverage" --results-directory ./coverage
+          dotnet test Restaurants.Api/Restaurants.Api.sln --configuration Release --verbosity normal --logger "console;verbosity=detailed" --collect:"XPlat Code Coverage" --results-directory ./coverage
         continue-on-error: false
 
       # 7️⃣ Display test results summary
