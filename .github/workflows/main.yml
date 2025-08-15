@@ -24,12 +24,12 @@ jobs:
 
       # 3️⃣ Restore dependencies
       - name: Restore dependencies
-        run: dotnet restore Restaurants.Api.sln
+        run: dotnet restore Restaurants.Api/Restaurants.Api.sln
 
       # 4️⃣ Build without treating warnings as errors (temporary while fixing code)
       - name: Build
-        run: dotnet build Restaurants.Api.sln --configuration Release /p:TreatWarningsAsErrors=false
+        run: dotnet build Restaurants.Api/Restaurants.Api.sln --configuration Release /p:TreatWarningsAsErrors=false
 
       # 5️⃣ Run all tests in the solution
       - name: Test
-        run: dotnet test Restaurants.Api.sln --no-build --verbosity normal
+        run: dotnet test Restaurants.Api/Restaurants.Api.sln --no-build --verbosity normal
